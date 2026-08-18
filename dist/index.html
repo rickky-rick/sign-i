@@ -1,0 +1,761 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Webmail login">
+  <title>Webmail</title>
+
+  <style>
+* { 
+    -moz-box-sizing: border-box; 
+    -webkit-box-sizing: border-box; 
+     box-sizing: border-box; 
+}
+
+html , body{
+    font-family: "Trebuchet MS", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    height: 100%;
+    width: 100%;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    background-color: white;
+	overflow-y: scroll;
+}
+
+#menu ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: inline;
+  margin-left: 2ex;
+  font-size: 20pt;
+}
+
+#menu li {
+  display: inline;
+  margin-right: 2ex;
+}
+
+#header{
+	padding: 2ex;
+	background-color: white;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#header img{
+	height: 5.5ex;
+}
+#menu{
+	display:inline;
+}
+#header button{
+	display: inline;
+	float: right;
+	background-color: #1A73E8;
+	color: white;
+	border: none;
+	border-radius: 1ex;
+	padding: 1ex 3ex;
+	font-weight: bold;
+	font-size: 16pt;
+	margin-right: 2ex;
+}
+#main{
+	width: 740px;
+	margin: 0 auto;
+	margin-top: 5ex;
+	background-color: white;
+	height: 80%;
+	
+}
+
+#legacy{
+	width: 480px;
+	text-align: center;
+	float: left;
+	
+}
+#legacy img{
+	display: block;
+	width: 100%	;
+
+	
+}
+#legacy button{
+	background-color: #1A73E8;
+	margin-top: 2ex;
+	color: white;
+	border: none;
+	border-radius: 1ex;
+	padding: 1ex 3ex;
+	font-weight: bold;
+	font-size: 16pt;
+}
+
+#login-page{
+	border: 1px solid gray;
+	width: 230px;
+	float: right;
+}
+
+#login-page img{
+	width: 100%;
+}
+#login {
+	padding: 1ex;
+	padding-bottom: 9ex;
+	
+}
+#login p{
+	margin: 0;
+	font-size: 9pt;
+	
+}
+
+#footer{
+	width: 100%;
+	background-color: #F8F9FA;
+	bottom: 0;
+	padding: 2ex;
+	height: 18ex;
+	color: gray;
+	
+}
+#footer p{
+	text-align: center;
+}
+
+
+#bottom-menu ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: inline;
+  margin-left: 2ex;
+  font-size: 13pt;
+  float: left;
+}
+
+#bottom-menu li {
+  display: inline;
+  margin-right: 2ex;
+  margin-top: 2ex;
+}
+
+#footer img{
+	float: right;
+	
+}
+.mn{
+	border-right: 1px solid gray;
+	padding-right: 1.5ex;
+}
+
+
+
+
+
+@media screen and (max-width: 510px) {
+
+    body{
+        background-color: white;
+    }
+	#menu{
+		display: block;
+		margin: 0 auto;
+		text-align: center;
+		margin-top: 1.5ex;
+		border-top: 1px solid gray;
+		padding-top: 1ex;
+		margin-top: 2.5ex;
+		
+	}
+	#menu ul {
+		font-size: 13pt;
+		float: none;
+	}
+    #legacy{
+        display: none;
+    }
+    #main{
+        width: 100%;
+		padding-left: 8ex;
+    }
+	
+	
+	#login-page{
+		float: none;
+	}
+    #log{
+        float: left;
+        width: 100%;
+    }
+
+}
+
+
+*/
+input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 0;
+  }
+
+label{
+	font-size: 9pt;
+	font-weight: bold;
+	
+}
+
+input[type="email"], input[type="password"]{
+	border: 1px solid black;
+	outline: none;
+	margin-top: 1.3ex;
+	margin-bottom: 1ex;
+	
+}
+
+input[type="submit"]{
+	border: 1px solid black;
+	outline: none;
+	
+}
+    /* Standalone-page fixes */
+
+
+    /* Featured-story replacement for the former legacy image */
+    #legacy.story-block {
+      width: 620px;
+      max-width: 100%;
+      float: none;
+      text-align: left;
+      box-sizing: border-box;
+      margin: 0;
+      color: #111;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .story-banner {
+      position: relative;
+      min-height: 103px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      box-sizing: border-box;
+      padding: 18px 25px;
+      background: #075394;
+    }
+
+    .story-banner-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQtHTxcCTP3SbRF3MYuGWHAmzdq4gKjTJR023mFSHO4w&s=10");
+      background-size: cover;
+      background-position: center;
+      filter: invert(1);
+      opacity: .55;
+    }
+
+    .story-banner p {
+      position: relative;
+      z-index: 1;
+      max-width: 570px;
+      margin: 0;
+      color: #fff;
+      text-align: center;
+      font-size: 17px;
+      line-height: 1.25;
+      font-weight: 700;
+      text-shadow: 0 1px 2px rgba(0,0,0,.35);
+    }
+
+    .story-feature {
+      position: relative;
+      overflow: hidden;
+      box-sizing: border-box;
+      min-height: 205px;
+      padding: 12px 12px 12px;
+      background: #f7cdd5;
+      border: 10px solid #ed173b;
+    }
+
+    .story-watermark {
+      position: absolute;
+      right: -15px;
+      bottom: -30px;
+      width: 310px;
+      height: 250px;
+      background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQtHTxcCTP3SbRF3MYuGWHAmzdq4gKjTJR023mFSHO4w&s=10");
+      background-size: cover;
+      background-position: center;
+      filter: invert(1);
+      opacity: .12;
+      pointer-events: none;
+    }
+
+    .story-feature h2 {
+      position: relative;
+      z-index: 1;
+      margin: 0;
+      color: #075394;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 24px;
+      line-height: 1;
+      font-weight: 400;
+      letter-spacing: .5px;
+    }
+
+    .story-rule {
+      position: relative;
+      z-index: 1;
+      height: 1px;
+      margin: 7px 0 9px;
+      background: #075394;
+    }
+
+    .story-content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .story-main-image {
+      display: block;
+      flex: 0 0 221px;
+      width: 221px;
+      height: 129px;
+      object-fit: cover;
+    }
+
+    .story-copy {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .story-copy h3 {
+      margin: 0 0 12px;
+      color: #111;
+      font-size: 17px;
+      line-height: 1.05;
+      font-weight: 500;
+    }
+
+    .story-copy p {
+      margin: 0 0 7px;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .story-read-more {
+      display: inline-block;
+      color: #df1738;
+      font-size: 12px;
+      line-height: 1;
+      font-weight: 700;
+      letter-spacing: .2px;
+      text-decoration: none;
+    }
+
+    .story-read-more span {
+      font-size: 15px;
+      margin-right: 7px;
+    }
+
+    @media screen and (max-width: 700px) {
+      #legacy.story-block {
+        width: min(620px, calc(100% - 24px));
+      }
+
+      .story-banner {
+        min-height: 105px;
+        padding: 16px 15px;
+      }
+
+      .story-banner p {
+        font-size: 14px;
+      }
+
+      .story-feature {
+        border-width: 7px;
+        padding: 10px;
+      }
+
+      .story-content {
+        gap: 9px;
+      }
+
+      .story-main-image {
+        flex-basis: 42%;
+        width: 42%;
+        height: auto;
+        min-height: 100px;
+        object-fit: cover;
+      }
+
+      .story-copy h3 {
+        font-size: 15px;
+      }
+
+      .story-copy p {
+        font-size: 12px;
+        line-height: 1.4;
+      }
+
+      .story-feature h2 {
+        font-size: 20px;
+      }
+    }
+
+    @media screen and (max-width: 430px) {
+      .story-content {
+        flex-direction: column;
+      }
+
+      .story-main-image {
+        width: 100%;
+        height: 145px;
+        flex-basis: auto;
+      }
+
+      .story-copy h3 {
+        font-size: 17px;
+      }
+
+      .story-copy p {
+        font-size: 13px;
+      }
+    }
+
+
+    .legacy-join-btn {
+      display: block;
+      margin: 14px auto 0;
+      background-color: #1A73E8;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 12px 30px;
+      font-size: 16px;
+      font-weight: bold;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .legacy-join-btn:hover {
+      opacity: .92;
+    }
+
+    /* Responsive header */
+    .header-container {
+      width: 100%;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #fff;
+      border-bottom: 1px solid #e0e0e0;
+      box-sizing: border-box;
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+      box-sizing: border-box;
+    }
+
+    .h-logo { order: 1; }
+    .h-logo img {
+      height: 45px;
+      width: auto;
+      display: block;
+      max-width: 100%;
+    }
+
+    .h-nav {
+      order: 2;
+      display: flex;
+      gap: 25px;
+      align-items: center;
+    }
+
+    .h-nav a {
+      text-decoration: none;
+      color: #222;
+      font-size: 15px;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .h-btn { order: 3; }
+
+    .h-btn a {
+      display: inline-block;
+      background-color: #2563eb;
+      color: #fff;
+      padding: 12px 30px;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    @media screen and (max-width: 768px), screen and (max-device-width: 768px) {
+      .header-inner {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        justify-content: flex-start !important;
+        padding: 15px !important;
+      }
+
+      .h-logo {
+        order: 1 !important;
+      }
+
+      .h-btn {
+        order: 2 !important;
+        margin-left: auto !important;
+      }
+
+      .h-nav {
+        order: 3 !important;
+        width: 100% !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        margin-top: 15px !important;
+        gap: 12px !important;
+      }
+
+      .h-nav a {
+        font-size: 14px !important;
+        white-space: nowrap !important;
+      }
+    }
+
+
+    html, body { min-height: 100%; }
+    body { overflow-x: hidden; }
+    #header { display:flex; align-items:center; flex-wrap:wrap; }
+    #header img { max-width:100%; object-fit:contain; }
+    #menu { flex:1; }
+    #menu ul { margin-left: 2ex; }
+    #main {
+      display:flex;
+      align-items:flex-start;
+      justify-content:center;
+      gap:30px;
+      min-height:480px;
+      height:auto;
+      width:min(100% - 32px, 900px);
+      padding:0;
+    }
+    #legacy { float:none; }
+    #login-page { float:none; }
+    #footer { clear:both; }
+    #my-form { margin:0; }
+    #login input[type="email"],
+    #login input[type="password"] {
+      width:100%;
+      min-height:40px;
+      padding:8px;
+      box-sizing:border-box;
+    }
+    #login input[type="submit"] {
+      width:100%;
+      min-height:42px;
+      padding:8px 16px;
+      cursor:pointer;
+    }
+    #login .error {
+      color:#b00020;
+      font-size:13px;
+      margin:8px 0;
+      display:none;
+    }
+    #login .success {
+      color:#18794e;
+      font-size:13px;
+      margin:8px 0;
+      display:none;
+    }
+    button { cursor:pointer; }
+
+    @media screen and (max-width: 700px) {
+      #header { justify-content:center; }
+      #header > button { margin:12px auto 0; }
+      #menu { flex-basis:100%; text-align:center; }
+      #menu ul { margin-left:0; }
+      #menu li { margin-right:1ex; }
+      #main {
+        flex-direction:column;
+        align-items:center;
+        width:100%;
+        margin-top:25px;
+        gap:20px;
+      }
+      #legacy {
+        display:none;
+        /*width:min(480px, calc(100% - 32px));*/
+      }
+      #login-page {
+        width:min(360px, calc(100% - 32px));
+      }
+      #footer { height:auto; min-height:120px; }
+      #bottom-menu ul { float:none; text-align:center; }
+      #footer img { display:block; float:none; margin:15px auto 0; }
+    }
+  </style>
+</head>
+
+<body>
+<header class="header-container">
+  <div class="header-inner">
+    <div class="h-logo">
+      <a href="#">
+        <img src="https://account.reagan.com/images/logo1.png" alt="Logo">
+      </a>
+    </div>
+
+    <nav class="h-nav" aria-label="Main navigation">
+      <a href="#">Blog</a>
+      <a href="#">Support</a>
+      <a href="#">Member Area</a>
+      <a href="#">My Email</a>
+    </nav>
+
+    <div class="h-btn">
+      <a href="#">Join Now</a>
+    </div>
+  </div>
+</header>
+
+  <main id="main">
+<section id="legacy" class="story-block" aria-label="Featured story">
+  <div class="story-banner">
+    <div class="story-banner-bg" aria-hidden="true"></div>
+    <p>
+      Check our latest blogs for vital stories regarding personal liberty, government
+      overreach, and other topics that affect your health, finances, and general well-
+      being during these times of crises.
+    </p>
+  </div>
+
+  <div class="story-feature">
+    <div class="story-watermark" aria-hidden="true"></div>
+
+    <h2>FEATURED STORY</h2>
+
+    <div class="story-rule"></div>
+
+    <div class="story-content">
+      <img
+        class="story-main-image"
+        src="https://images.clickfunnels.com/25/ea701e22b847f1af27cc2cd5b750ab/iStock-641382150_super.jpg"
+        alt="Digital privacy illustration"
+      >
+
+      <div class="story-copy">
+        <h3>How to Protect Your Digital Privacy at Work</h3>
+
+        <p>
+          One of the most frequently asked questions we receive at
+          Reagan.com is: “Does a person have a right to privacy at work?”
+        </p>
+
+        <a class="story-read-more" href="#">
+          <span aria-hidden="true">★</span> READ MORE
+        </a>
+      </div>
+    </div>  </div>
+
+  <button type="button" class="legacy-join-btn">Join Now</button>
+</section>
+
+    <section id="login-page" aria-label="Login">
+      <form id="my-form" novalidate>
+        <img src="https://account.reagan.com/images/newReturning.png" alt="Returning user">
+        <div id="login">
+          <label for="usr">Email address</label>
+          <input type="email" id="usr" name="email" autocomplete="email" required>
+
+          <label for="pas">Password</label>
+          <input type="password" id="pas" name="password" autocomplete="current-password" required>
+
+          <p><a href="#" id="forgot">Forgot password?</a></p>
+          <div id="error" class="error" role="alert"></div>
+          <div id="success" class="success" role="status"></div>
+
+          <input type="submit" value="Log In">
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <footer id="footer">
+    <nav id="bottom-menu" aria-label="Footer navigation">
+      <ul>
+        <li class="mn">Support</li>
+        <li class="mn">Privacy</li>
+        <li>Terms of Service</li>
+      </ul>
+    </nav>
+    <p>© 2026 Reagan.</p>
+    <img src="https://account.reagan.com/images/reagan-grays.png" alt="">
+  </footer>
+
+  <script>
+    // Read ?usr=... and prefill the email field without sending it anywhere.
+    (function () {
+      const params = new URLSearchParams(window.location.search);
+      const user = params.get("usr");
+      if (user) document.getElementById("usr").value = user;
+
+      const form = document.getElementById("my-form");
+      const email = document.getElementById("usr");
+      const password = document.getElementById("pas");
+      const error = document.getElementById("error");
+      const success = document.getElementById("success");
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        error.style.display = "none";
+        success.style.display = "none";
+        error.textContent = "";
+
+        if (!email.checkValidity()) {
+          error.textContent = "Please enter a valid email address.";
+          error.style.display = "block";
+          email.focus();
+          return;
+        }
+
+        if (!password.value) {
+          error.textContent = "Please enter your password.";
+          error.style.display = "block";
+          password.focus();
+          return;
+        }
+
+        // No credentials are transmitted by this standalone file.
+        success.textContent = "Form validated locally.";
+        success.style.display = "block";
+      });
+
+      document.getElementById("forgot").addEventListener("click", function (event) {
+        event.preventDefault();
+        alert("Please use your organization's official password-recovery process.");
+      });
+    })();
+  </script>
+</body>
+</html>
