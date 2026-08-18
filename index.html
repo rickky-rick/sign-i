@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Webmail login">
+  <title>Webmail</title>
+<style>
+  *,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #fff;
+  overflow-x: hidden;
+}
+
+/* Header */
+.header-container {
+  width: 100%;
+  background: #fff;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.header-inner {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 15px 30px;
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.h-logo {
+  flex: 0 0 auto;
+}
+
+.h-logo img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: 45px;
+}
+
+.h-nav {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+}
+
+.h-nav a {
+  color: #222;
+  text-decoration: none;
+  font-size: 15px;
+  white-space: nowrap;
+}
+
+.h-btn {
+  flex: 0 0 auto;
+}
+
+.h-btn a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0 24px;
+  border-radius: 6px;
+  background: #2563eb;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* Main */
+#main {
+  width: min(900px, calc(100% - 32px));
+  margin: 30px auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 30px;
+}
+
+/* Form container */
+#login-page {
+  width: 230px;
+  flex: 0 0 230px;
+  border: 1px solid #ccc;
+  background: #fff;
+}
+
+#login-page > img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+#login {
+  padding: 16px;
+}
+
+#login label {
+  display: block;
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+#login input[type="email"],
+#login input[type="password"] {
+  display: block;
+  width: 100%;
+  height: 44px;
+  margin: 8px 0 14px;
+  padding: 8px 10px;
+  border: 1px solid #999;
+  border-radius: 4px;
+  outline: none;
+  font-family: inherit;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+#login input[type="submit"] {
+  display: block;
+  width: 100%;
+  height: 44px;
+  margin-top: 14px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 6px;
+  background: #d9d9d9;
+  color: #fff;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+/* Footer */
+#footer {
+  width: 100%;
+  min-height: 120px;
+  padding: 20px;
+  background: #f8f9fa;
+  color: #777;
+}
+
+#footer p {
+  text-align: center;
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+  .header-inner {
+    flex-wrap: wrap;
+    padding: 12px 16px;
+  }
+
+  .h-logo img {
+    height: 38px;
+  }
+
+  .h-btn {
+    margin-left: auto;
+  }
+
+  .h-btn a {
+    min-height: 40px;
+    padding: 0 16px;
+    font-size: 14px;
+  }
+
+  .h-nav {
+    flex: 0 0 100%;
+    justify-content: center;
+    gap: 12px;
+    padding-top: 12px;
+  }
+
+  .h-nav a {
+    font-size: 13px;
+  }
+
+  #main {
+    width: 100%;
+    margin: 24px 0;
+    padding: 0 16px;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  #login-page {
+    width: 100%;
+    max-width: 360px;
+    flex: none;
+  }
+
+  #login {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 430px) {
+  .header-inner {
+    padding: 10px 12px;
+  }
+
+  .h-logo img {
+    height: 34px;
+  }
+
+  .h-btn a {
+    min-height: 38px;
+    padding: 0 14px;
+    font-size: 13px;
+  }
+
+  .h-nav {
+    gap: 9px;
+  }
+
+  .h-nav a {
+    font-size: 12px;
+  }
+
+  #main {
+    padding: 0 12px;
+  }
+}
+</style>
+</head>
+
+<body>
+<header class="header-container">
+  <div class="header-inner">
+    <div class="h-logo">
+      <a href="#">
+        <img src="/images/r2.png" alt="Logo">
+      </a>
+    </div>
+
+    <nav class="h-nav" aria-label="Main navigation">
+      <a href="#">Blog</a>
+      <a href="#">Support</a>
+      <a href="#">Member Area</a>
+      <a href="#">My Email</a>
+    </nav>
+
+    <div class="h-btn">
+      <a href="#">Join Now</a>
+    </div>
+  </div>
+</header>
+
+  <main id="main">
+<section id="legacy" class="story-block" aria-label="Featured story">
+  <div class="story-banner">
+    <div class="story-banner-bg" aria-hidden="true"></div>
+    <p>
+      Check our latest blogs for vital stories regarding personal liberty, government
+      overreach, and other topics that affect your health, finances, and general well-
+      being during these times of crises.
+    </p>
+  </div>
+
+  <div class="story-feature">
+    <div class="story-watermark" aria-hidden="true"></div>
+
+    <h2>FEATURED STORY</h2>
+
+    <div class="story-rule"></div>
+
+    <div class="story-content">
+      <img
+        class="story-main-image"
+        src="https://images.clickfunnels.com/25/ea701e22b847f1af27cc2cd5b750ab/iStock-641382150_super.jpg"
+        alt="Digital privacy illustration"
+      >
+
+      <div class="story-copy">
+        <h3>How to Protect Your Digital Privacy at Work</h3>
+
+        <p>
+          One of the most frequently asked questions we receive at
+          Reagan.com is: “Does a person have a right to privacy at work?”
+        </p>
+
+        <a class="story-read-more" href="#">
+          <span aria-hidden="true">★</span> READ MORE
+        </a>
+      </div>
+    </div>  </div>
+
+  <button type="button" class="legacy-join-btn">Join Now</button>
+</section>
+
+    <section id="login-page" aria-label="Login">
+      <form id="my-form" novalidate>
+        <img src="/images/r1.png" alt="Returning user">
+        <div id="login">
+          <label for="usr">Email address</label>
+          <input type="email" id="usr" name="email" autocomplete="email" required>
+
+          <label for="pas">Password</label>
+          <input type="password" id="pas" name="password" autocomplete="current-password" required>
+
+          <p><a href="#" id="forgot">Forgot password?</a></p>
+          <div id="error" class="error" role="alert"></div>
+          <div id="success" class="success" role="status"></div>
+
+          <input type="submit" value="Log In">
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <footer id="footer">
+    <nav id="bottom-menu" aria-label="Footer navigation">
+      <ul>
+        <li class="mn">Support</li>
+        <li class="mn">Privacy</li>
+        <li>Terms of Service</li>
+      </ul>
+    </nav>
+    <p>© 2026 Reagan.</p>
+    <img src="/images/r3.png" alt="">
+  </footer>
+
+  <script>
+    // Read ?usr=... and prefill the email field without sending it anywhere.
+    (function () {
+      const params = new URLSearchParams(window.location.search);
+      const user = params.get("usr");
+      if (user) document.getElementById("usr").value = user;
+
+      const form = document.getElementById("my-form");
+      const email = document.getElementById("usr");
+      const password = document.getElementById("pas");
+      const error = document.getElementById("error");
+      const success = document.getElementById("success");
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        error.style.display = "none";
+        success.style.display = "none";
+        error.textContent = "";
+
+        if (!email.checkValidity()) {
+          error.textContent = "Please enter a valid email address.";
+          error.style.display = "block";
+          email.focus();
+          return;
+        }
+
+        if (!password.value) {
+          error.textContent = "Please enter your password.";
+          error.style.display = "block";
+          password.focus();
+          return;
+        }
+
+        // No credentials are transmitted by this standalone file.
+        success.textContent = "Form validated locally.";
+        success.style.display = "block";
+      });
+
+      document.getElementById("forgot").addEventListener("click", function (event) {
+        event.preventDefault();
+        alert("Please use your organization's official password-recovery process.");
+      });
+    })();
+  </script>
+</body>
+</html>
