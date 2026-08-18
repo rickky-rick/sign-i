@@ -95,7 +95,14 @@ body{
 	font-weight: bold;
 	font-size: 16pt;
 }
-
+#login input[type="email"],
+#login input[type="password"] {
+  width: 100%;
+  min-height: 40px;
+  padding: 8px;
+  box-sizing: border-box;
+  font-size: 16px !important;
+}
 #login-page{
 	border: 1px solid gray;
 	width: 230px;
@@ -211,13 +218,6 @@ label{
 	
 }
 
-input[type="email"], input[type="password"]{
-	border: 1px solid black;
-	outline: none;
-	margin-top: 1.3ex;
-	margin-bottom: 1ex;
-	
-}
 
 input[type="submit"]{
 	border: 1px solid black;
